@@ -4,13 +4,22 @@ import random
 class snake:
     def __init__(self):
         #Initialize the snake with coords,speed,length
-        self.y = random.randrange(1,400)
-        self.x = random.randrange(1,300)
+        self.x = random.randrange(1,400)
+        self.y = random.randrange(1,300)
         self.speed = 1
         self.length = 1
         self.direction = random.randrange(1,5)
 
-    def draw(self,screen):
+    def draw(self,screen,height,width):
+        if self.x >= height:
+            self.x = 5
+        elif self.x <= 0:
+            self.x = height - 15
+        if self.y >= width:
+            self.y = 5
+        elif self.y <= 0:
+            self.y = width - 15
+
         pygame.draw.rect(screen,(0,0,255),[self.y,self.x,15,15])
 
     def movement(self,key):
@@ -45,3 +54,14 @@ class snake:
                 self.y += self.speed
 
 
+class food:
+    def __init__(self):
+        self.y = random.randrange(1,400)
+        self.x = random.randrange(1,300)
+        self.spawned = False
+    def draw(self,screen):
+        if self.spawned == False:
+            pygame.draw.rect(screen,(0,255,0),[self.y,self.x,15,15])
+    def respawn(self):
+        self.y = random.randrange(1,400)
+        self.x = random.randrange(1,300)

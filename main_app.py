@@ -1,11 +1,12 @@
 import random
 import pygame
-from snake import snake
+from snake import snake,food
 #from snake import snake
 #
-HEIGHT = 300
-WIDTH = 400
-snakero = snake()
+HEIGHT = 500
+WIDTH = 500
+snake = snake()
+food = food()
 screen = pygame.display.set_mode((WIDTH,HEIGHT))
 clock = pygame.time.Clock()
 
@@ -20,12 +21,15 @@ def gameloop():
         for event in pygame.event.get():
             if event.type==pygame.QUIT:
                 game_over=True
-            snakero.movement(event)
-        snakero.snake_direction()
+            snake.movement(event)
+        snake.snake_direction()
         screen.fill((255,255,255))
-        snakero.draw(screen)
+        snake.draw(screen,HEIGHT,WIDTH)
+        if food.x < snake.x < food.x + 15 and food.y < snake.y < food.y + 15 or food.x < snake.x + 15 < food.x + 15 and food.y < snake.y + 15 < food.y + 15 :
+            food.respawn()
+        food.draw(screen)
         pygame.display.update()
-        clock.tick(50)
+        clock.tick(100)
 
 
 def main():
