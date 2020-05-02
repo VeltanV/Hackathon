@@ -1,10 +1,47 @@
+import pygame
+import random
+
 class snake:
     def __init__(self):
+        #Initialize the snake with coords,speed,length
         self.y = random.randrange(1,400)
         self.x = random.randrange(1,300)
-        self.speed = 10
+        self.speed = 1
         self.length = 1
-        self.direction =
+        self.direction = random.randrange(1,5)
 
     def draw(self,screen):
-        pygame.draw.rect(screen,(0,0,255),[self.x,self.y,100,15,15],0)
+        pygame.draw.rect(screen,(0,0,255),[self.y,self.x,15,15])
+
+    def movement(self,key):
+        #this handles key input
+        if key.type == pygame.KEYDOWN:
+            if key.key == pygame.K_LEFT:
+                self.direction  = 1;
+
+            if key.key == pygame.K_UP:
+                self.direction  = 2;
+
+            if key.key == pygame.K_DOWN:
+                self.direction  = 3;
+
+            if key.key == pygame.K_RIGHT:
+                self.direction  = 4;
+
+
+    def snake_direction(self):
+        #this handles self movement based of direction off the snake
+            if self.direction == 1:
+                #left
+                self.y -= self.speed
+            elif self.direction == 2:
+                #up
+                self.x -= self.speed
+            elif self.direction == 3:
+                #down
+                self.x += self.speed
+            elif self.direction == 4:
+                #right
+                self.y += self.speed
+
+
