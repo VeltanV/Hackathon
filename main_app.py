@@ -22,10 +22,12 @@ def gameloop():
             if event.type==pygame.QUIT:
                 game_over=True
             snake.movement(event)
+            pygame.display.update()
         snake.snake_direction()
         screen.fill((255,255,255))
         snake.draw(screen,HEIGHT,WIDTH)
         if food.x < snake.x < food.x + 15 and food.y < snake.y < food.y + 15 or food.x < snake.x + 15 < food.x + 15 and food.y < snake.y + 15 < food.y + 15 :
+            snake.length += 1
             food.respawn()
         food.draw(screen)
         pygame.display.update()
